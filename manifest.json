@@ -1,0 +1,43 @@
+{
+  "manifest_version": 2,
+
+  "name": "RadioGuessr",
+  "version": "0.1.0",
+  "author": "dzstara",
+  "description": "Listen to a random radio from the country you're visiting. To be used outside tournaments as this would give an unfair advantage over other participants. Only works in Classic mode.",
+
+  "permissions": [
+    "storage",
+    "webRequest",
+    "webRequestBlocking",
+    "https://fr1.api.radio-browser.info/",
+    "https://www.geoguessr.com/"
+  ],
+
+  "content_scripts": [
+    {
+      "matches": ["*://*.geoguessr.com/game/*"],
+      "js": ["lib/browser-polyfill.min.js", "src/content_script/main.js"]
+    }
+  ],
+
+  "background": {
+    "page": "src/background/main.html",
+    "persistent": true
+  },
+
+  "browser_action": {
+    "browser_style": true,
+    "default_icon": {
+      "16": "media/icon.png",
+      "32": "media/icon.png"
+    },
+    "default_title": "RadioGuessr",
+    "default_popup": "src/browser_action/panel.html"
+  },
+
+  "icons": {
+    "48": "media/icon.png",
+    "96": "media/icon.png"
+  }
+}

@@ -1,0 +1,15 @@
+.Disclaimer--text,
+.Disclaimer--list {
+  font-size: 13px;
+  text-align: justify;
+  line-height: 1.4;
+}
+
+.Disclaimer--list {
+  padding-left: 1em;
+  list-style-type: disc;
+}
+
+.Disclaimer--list > li {
+  margin-bottom: 0.3em;
+}

@@ -1,0 +1,9 @@
+.Report {
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.Report:hover {
+  color: #666;
+  text-decoration: underline;
+}
