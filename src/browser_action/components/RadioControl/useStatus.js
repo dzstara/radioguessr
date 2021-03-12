@@ -27,12 +27,11 @@ export default function useStatus() {
   }, []);
 
   useEffect(() => {
-    browser.runtime.sendMessage(
-      {
+    browser.runtime
+      .sendMessage({
         action: "GET_STATE",
-      },
-      setState
-    );
+      })
+      .then(setState);
   }, []);
 
   return { state, togglePlay };

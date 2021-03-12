@@ -14,18 +14,14 @@ function getHandler(action) {
   }
 }
 
-browser.runtime.onMessage.addListener(function handleMessages(
-  request,
-  _,
-  sendResponse
-) {
+browser.runtime.onMessage.addListener(function handleMessages(request) {
   const [handler, shouldRespond] = getHandler(request.action);
 
   if (!handler) return;
 
   try {
     const result = handler(request.data);
-    if (shouldRespond) sendResponse(result);
+    if (shouldRespond) return Promise.resolve(result);
   } catch (err) {
     console.error("Message handler error", err);
   }
