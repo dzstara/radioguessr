@@ -1,3 +1,5 @@
+import "webextension-polyfill";
+
 function setLocation(location) {
   browser.runtime.sendMessage({
     action: "SET_POSITION",

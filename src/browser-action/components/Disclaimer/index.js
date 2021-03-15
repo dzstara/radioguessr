@@ -1,4 +1,5 @@
-const { createElement: e, Fragment } = React;
+import { createElement as e, Fragment } from "react";
+import "./style.css";
 
 export default function Disclaimer(props) {
   return e(

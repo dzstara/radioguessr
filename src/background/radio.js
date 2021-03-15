@@ -1,5 +1,5 @@
-import { getCountry } from "./geo.js";
-import { getRandomStationFromCountry } from "./stations.js";
+import { getCountry } from "./geo";
+import { getRandomStationFromCountry } from "./stations";
 
 const radioAudioElement = document.createElement("audio");
 radioAudioElement.volume = 0.1;
@@ -128,9 +128,8 @@ async function setupRadio() {
   }
 
   const { lat, lng } = state.position;
-  const countryInfo = getCountry(lat, lng);
-
-  const url = await getRandomStationFromCountry(countryInfo.code);
+  const countryCode = getCountry(lat, lng);
+  const url = await getRandomStationFromCountry(countryCode);
   radioMap.set(state.position, url);
 
   setState((state) => ({ ...state, radio: url }));

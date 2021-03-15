@@ -1,2 +1,5 @@
+node_modules
+
 /todo.md
+/dist
 /build

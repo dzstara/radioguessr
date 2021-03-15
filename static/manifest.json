@@ -17,12 +17,12 @@
   "content_scripts": [
     {
       "matches": ["*://*.geoguessr.com/game/*"],
-      "js": ["lib/browser-polyfill.min.js", "src/content_script/main.js"]
+      "js": ["content-script.js"]
     }
   ],
 
   "background": {
-    "page": "src/background/main.html",
+    "scripts": ["background.js"],
     "persistent": true
   },
 
@@ -33,7 +33,7 @@
       "32": "media/icon.png"
     },
     "default_title": "RadioGuessr",
-    "default_popup": "src/browser_action/panel.html"
+    "default_popup": "browser-action.html"
   },
 
   "icons": {

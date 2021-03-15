@@ -37,25 +37,17 @@ web-ext --config=webext-config.js sign --api-key=KEY --api-secret=SECRET
 
 - `src` : main RadioGuessr code
   - `background` : getting the radio streams and playing them as well as responding to events from other parts of the extension
-  - `browser_action` : the interface shown when clicking the extension button, it is coded using React (without JSX)
-  - `content_script` : code that is injected on GeoGuessr pages
+  - `browser-action` : the interface shown when clicking the extension button, it is coded using React (without JSX)
+  - `content-script` : code that is injected on GeoGuessr pages
   - `util` : code used in multiple parts
-- `lib` : external code
-- `media` : images and sound
+- `static` : base files and manifests
+  - `media` : images and sound
 
 ## Credits
 
-- Geographic data from johan  
-  Source: https://raw.githubusercontent.com/johan/world.geo.json/master/countries.geo.json  
-  Repository: https://github.com/johan/world.geo.json
+Some dependencies are not pulled from NPM, as such here are their authors:
 
-- Country codes data from lukes  
-  Source: https://github.com/lukes/ISO-3166-Countries-with-Regional-Codes/blob/master/all/all.json  
-  Repository: https://github.com/lukes/ISO-3166-Countries-with-Regional-Codes
-
-- Reverse geocoding code from totemstech  
-  Source: https://raw.githubusercontent.com/totemstech/country-reverse-geocoding/master/lib/country_reverse_geocoding.js  
-  Repository: https://github.com/totemstech/country-reverse-geocoding/
-
-- Radio tuning sound from davidbain  
-  Source: https://freesound.org/people/davidbain/sounds/259706/
+- Radio tuning sound from [David Bain](https://freesound.org/people/davidbain/)  
+  Source: https://freesound.org/people/davidbain/sounds/259706/  
+  File found in `/static/media/tuning.ogg`  
+  Modified to be played in a loop

@@ -1,3 +1,5 @@
+import "webextension-polyfill";
+
 import { setPosition, togglePlay, getState } from "./radio.js";
 import "./hook.js";
 

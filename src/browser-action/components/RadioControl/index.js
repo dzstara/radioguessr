@@ -1,6 +1,6 @@
-import useStatus from "./useStatus.js";
-
-const { createElement: e } = React;
+import { createElement as e } from "react";
+import classnames from "classnames";
+import useStatus from "./useStatus";
 
 export default function RadioControl() {
   const { state, togglePlay } = useStatus();
@@ -8,7 +8,7 @@ export default function RadioControl() {
   return e(
     "div",
     {
-      className: classNames("btn", {
+      className: classnames("btn", {
         "btn-loading": state.loading,
         "btn-valid": !state.loading && state.position !== null,
         "btn-disabled": state.position === null,

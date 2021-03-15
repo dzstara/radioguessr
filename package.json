@@ -1,0 +1,23 @@
+{
+  "name": "radioguessr",
+  "version": "0.1.1",
+  "author": "dzstara",
+  "description": "RadioGuessr is a small browser extension that streams a random radio from the country you're visiting in GeoGuessr.",
+  "private": true,
+  "scripts": {},
+  "dependencies": {
+    "classnames": "^2.2.6",
+    "fast-reverse-geocoder": "^1.0.0",
+    "iso-3166-1": "^2.0.1",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "webextension-polyfill": "^0.7.0"
+  },
+  "devDependencies": {
+    "copy-webpack-plugin": "^8.0.0",
+    "css-loader": "^5.1.2",
+    "style-loader": "^2.0.0",
+    "webpack": "^5.25.1",
+    "webpack-cli": "^4.5.0"
+  }
+}

@@ -1,4 +1,4 @@
-const { useCallback, useEffect, useState } = React;
+import { useCallback, useEffect, useState } from "react";
 
 export default function useDisclaimer() {
   const [acknowledged, setAcknowledged] = useState(false);

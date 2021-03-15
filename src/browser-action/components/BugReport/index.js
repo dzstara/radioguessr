@@ -1,4 +1,5 @@
-const { createElement: e } = React;
+import { createElement as e } from "react";
+import "./style.css";
 
 export default function BugReport() {
   const onClick = () => {

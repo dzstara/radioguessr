@@ -1,6 +1,5 @@
-const { createElement: e } = React;
-
-import BugReport from "../BugReport/BugReport.js";
+import { createElement as e } from "react";
+import BugReport from "../BugReport";
 
 export default function Footer() {
   return e(
