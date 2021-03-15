@@ -1,4 +1,4 @@
-import { createElement as e } from "react";
+import * as React from "react";
 import { browser } from "webextension-polyfill-ts";
 
 import "./style.css";
@@ -11,5 +11,9 @@ export default function BugReport() {
     });
   };
 
-  return e("span", { className: "Report", onClick }, "Report a bug");
+  return (
+    <span className="Report" onClick={onClick}>
+      Report a bug
+    </span>
+  );
 }

@@ -1,4 +1,4 @@
-import { createElement as e, Fragment } from "react";
+import * as React from "react";
 import { render } from "react-dom";
 import "./style";
 import useDisclaimer from "./components/Disclaimer/useDisclaimer";
@@ -9,15 +9,17 @@ import RadioControl from "./components/RadioControl";
 function App() {
   const { acknowledged, setAcknowledged } = useDisclaimer();
 
-  return e(
-    Fragment,
-    null,
-    e("h1", null, "📻 RadioGuessr"),
-    acknowledged
-      ? e(RadioControl, null)
-      : e(Disclaimer, { onAgree: setAcknowledged }),
-    e(Footer, null)
+  return (
+    <>
+      <h1>📻 RadioGuessr</h1>
+      {acknowledged ? (
+        <RadioControl />
+      ) : (
+        <Disclaimer onAgree={setAcknowledged} />
+      )}
+      <Footer />
+    </>
   );
 }
 
-render(e(App), document.querySelector("#root"));
+render(<App />, document.querySelector("#root"));

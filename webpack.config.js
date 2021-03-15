@@ -7,7 +7,7 @@ module.exports = {
   watch: true,
   entry: {
     background: "./src/background/main.ts",
-    "browser-action": "./src/browser-action/app.ts",
+    "browser-action": "./src/browser-action/app.tsx",
     "content-script": "./src/content-script/main.ts",
   },
   output: {
