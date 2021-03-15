@@ -2,9 +2,6 @@ const path = require("path");
 const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = {
-  mode: "development",
-  devtool: false,
-  watch: true,
   entry: {
     background: "./src/background/main.ts",
     "browser-action": "./src/browser-action/app.tsx",
