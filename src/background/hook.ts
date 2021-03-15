@@ -1,7 +1,9 @@
-import { createResponseListener } from "../util/response-listener.js";
-import { setPosition } from "./radio.js";
+import { browser } from "webextension-polyfill-ts";
 
-function apiHandler(_, responseStr) {
+import { createResponseListener } from "../util/response-listener";
+import { setPosition } from "./radio";
+
+function apiHandler(_: any, responseStr: string) {
   const response = JSON.parse(responseStr);
   const rounds = response.rounds;
   const lastRound = rounds[rounds.length - 1];

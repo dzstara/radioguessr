@@ -1,3 +1,6 @@
+import { browser } from "webextension-polyfill-ts";
+
+import { Position, StatusData } from "types";
 import { getCountry } from "./geo";
 import { getRandomStationFromCountry } from "./stations";
 
@@ -12,7 +15,7 @@ tuningAudioElement.src = "../../media/tuning.ogg";
 
 const radioMap = new Map();
 
-let state = {
+let state: StatusData = {
   position: null,
   radio: null,
   playing: false,
@@ -30,14 +33,14 @@ export function togglePlay() {
   }));
 }
 
-export function setPosition(position) {
+export function setPosition(position: Position) {
   setState((state) => ({
     ...state,
     position,
   }));
 }
 
-function setState(stateFn) {
+function setState(stateFn: (state: StatusData) => StatusData) {
   const previousState = state;
   state = stateFn(state);
 
@@ -85,7 +88,7 @@ radioAudioElement.addEventListener("ended", () => {
   }));
 });
 
-function onLoadingChange(loading) {
+function onLoadingChange(loading: boolean) {
   if (loading) {
     tuningAudioElement.play();
   } else {
@@ -93,7 +96,7 @@ function onLoadingChange(loading) {
   }
 }
 
-async function onPlayingIntentChange(playing) {
+async function onPlayingIntentChange(playing: boolean) {
   if (playing) {
     await setupRadio();
   } else {
@@ -102,14 +105,14 @@ async function onPlayingIntentChange(playing) {
   }
 }
 
-async function onPositionChange(position) {
+async function onPositionChange(position: Position) {
   setState((state) => ({ ...state, radio: null }));
   if (state.playing && !!position) await setupRadio();
   if (position === null)
     setState((state) => ({ ...state, loading: false, playing: false }));
 }
 
-function onRadioChange(radio) {
+function onRadioChange(radio: string | null) {
   if (radio === null) return;
 
   radioAudioElement.setAttribute("src", radio);

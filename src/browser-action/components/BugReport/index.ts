@@ -1,4 +1,6 @@
 import { createElement as e } from "react";
+import { browser } from "webextension-polyfill-ts";
+
 import "./style.css";
 
 export default function BugReport() {

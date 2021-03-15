@@ -1,6 +1,13 @@
-import { shuffle } from "../util/array.js";
+import { browser } from "webextension-polyfill-ts";
 
-let radioStations = [];
+import { shuffle } from "../util/array";
+
+interface RadioStation {
+  url: string;
+  country: string;
+}
+
+let radioStations: Array<RadioStation> = [];
 
 (async () => {
   const cache = await browser.storage.local.get("radioStations");
@@ -28,11 +35,11 @@ let radioStations = [];
   radioStations = stations;
 })();
 
-function parseCache(cache) {
+function parseCache(cache: Array<[string, string]>) {
   return cache.map(([url, country]) => ({ url, country }));
 }
 
-function translateToCache(data) {
+function translateToCache(data: Array<RadioStation>) {
   return data.map(({ url, country }) => [url, country]);
 }
 
@@ -50,14 +57,14 @@ async function getAllRadioStations() {
   const array = await response.json();
 
   return array
-    .map((radio) => ({
+    .map((radio: { countrycode: string; url_resolved: string }) => ({
       country: radio.countrycode,
       url: radio.url_resolved,
     }))
-    .filter((radio) => radio.country !== "");
+    .filter((radio: RadioStation) => radio.country !== "");
 }
 
-export async function getRandomStationFromCountry(countryCode) {
+export async function getRandomStationFromCountry(countryCode: string) {
   let radio = null;
 
   const candidates = shuffle(getRadioStationsFromCountry(countryCode));
@@ -84,13 +91,13 @@ export async function getRandomStationFromCountry(countryCode) {
   return radio;
 }
 
-function getRadioStationsFromCountry(countryCode) {
+function getRadioStationsFromCountry(countryCode: string) {
   return radioStations
     .filter((radio) => radio.country === countryCode)
     .map((radio) => radio.url);
 }
 
-async function isRadioValid(radioUrl) {
+async function isRadioValid(radioUrl: string) {
   const testElement = document.createElement("audio");
   testElement.volume = 0;
 

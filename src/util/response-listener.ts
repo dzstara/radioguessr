@@ -1,5 +1,12 @@
-export function createResponseListener(dataHandler) {
-  return function listener(details) {
+import { browser, WebRequest } from "webextension-polyfill-ts";
+
+export function createResponseListener(
+  dataHandler: (
+    details: WebRequest.OnBeforeRequestDetailsType,
+    body: string
+  ) => unknown
+) {
+  return function listener(details: WebRequest.OnBeforeRequestDetailsType) {
     const filter = browser.webRequest.filterResponseData(details.requestId);
     const decoder = new TextDecoder("utf-8");
     let encoder = new TextEncoder();

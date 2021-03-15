@@ -1,6 +1,7 @@
-import "webextension-polyfill";
+import { browser } from "webextension-polyfill-ts";
+import { Position } from "types";
 
-function setLocation(location) {
+function setLocation(location: Position | null) {
   browser.runtime.sendMessage({
     action: "SET_POSITION",
     data: location,
@@ -24,7 +25,7 @@ setInterval(() => {
 }, 100);
 
 try {
-  const raw = document.querySelectorAll("#__NEXT_DATA__")[0].text;
+  const raw = document.querySelectorAll("#__NEXT_DATA__")[0].innerHTML;
   const json = JSON.parse(raw);
   const rounds = json.props.pageProps.game.rounds;
   const currentRound = rounds[rounds.length - 1];

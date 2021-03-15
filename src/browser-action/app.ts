@@ -1,7 +1,5 @@
-import "webextension-polyfill";
-
 import { createElement as e, Fragment } from "react";
-import ReactDOM from "react-dom";
+import { render } from "react-dom";
 import "./style";
 import useDisclaimer from "./components/Disclaimer/useDisclaimer";
 import Disclaimer from "./components/Disclaimer";
@@ -22,4 +20,4 @@ function App() {
   );
 }
 
-ReactDOM.render(e(App), document.querySelector("#root"));
+render(e(App), document.querySelector("#root"));

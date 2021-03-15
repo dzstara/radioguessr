@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
+import { browser } from "webextension-polyfill-ts";
 
 export default function useDisclaimer() {
   const [acknowledged, setAcknowledged] = useState(false);

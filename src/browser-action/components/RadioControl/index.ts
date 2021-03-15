@@ -1,5 +1,7 @@
 import { createElement as e } from "react";
 import classnames from "classnames";
+
+import { StatusData } from "types";
 import useStatus from "./useStatus";
 
 export default function RadioControl() {
@@ -19,7 +21,7 @@ export default function RadioControl() {
   );
 }
 
-function getButtonText(state) {
+function getButtonText(state: StatusData) {
   if (state.loading) return "loading";
   if (state.position === null) return "no position found";
 

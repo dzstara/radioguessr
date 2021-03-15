@@ -1,8 +1,14 @@
 import { useCallback, useEffect, useState } from "react";
+import { browser } from "webextension-polyfill-ts";
+
+import { StatusData } from "types";
 
 export default function useStatus() {
-  const [state, setState] = useState({
+  const [state, setState] = useState<StatusData>({
     loading: true,
+    radio: null,
+    position: null,
+    playing: false,
   });
 
   const togglePlay = useCallback(() => {
@@ -14,9 +20,8 @@ export default function useStatus() {
   }, [state.loading]);
 
   useEffect(() => {
-    const handler = (request) => {
+    const handler = (request: any) => {
       if (request.action === "STATE_UPDATE") setState(request.data);
-      return true;
     };
 
     browser.runtime.onMessage.addListener(handler);

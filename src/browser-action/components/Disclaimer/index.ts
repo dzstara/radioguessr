@@ -1,7 +1,11 @@
 import { createElement as e, Fragment } from "react";
 import "./style.css";
 
-export default function Disclaimer(props) {
+interface DisclaimerProps {
+  onAgree: () => unknown;
+}
+
+export default function Disclaimer(props: DisclaimerProps) {
   return e(
     Fragment,
     null,

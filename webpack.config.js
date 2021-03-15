@@ -6,9 +6,9 @@ module.exports = {
   devtool: false,
   watch: true,
   entry: {
-    background: "./src/background/main.js",
-    "browser-action": "./src/browser-action/app.js",
-    "content-script": "./src/content-script/main.js",
+    background: "./src/background/main.ts",
+    "browser-action": "./src/browser-action/app.ts",
+    "content-script": "./src/content-script/main.ts",
   },
   output: {
     filename: "[name].js",
@@ -21,7 +21,15 @@ module.exports = {
         test: /\.css$/i,
         use: ["style-loader", "css-loader"],
       },
+      {
+        test: /\.tsx?$/,
+        use: "ts-loader",
+        exclude: /node_modules/,
+      },
     ],
+  },
+  resolve: {
+    extensions: [".tsx", ".ts", ".js"],
   },
   plugins: [
     new CopyPlugin({

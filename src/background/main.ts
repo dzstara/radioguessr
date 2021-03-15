@@ -1,18 +1,18 @@
-import "webextension-polyfill";
+import { browser } from "webextension-polyfill-ts";
 
-import { setPosition, togglePlay, getState } from "./radio.js";
-import "./hook.js";
+import { setPosition, togglePlay, getState } from "./radio";
+import "./hook";
 
-function getHandler(action) {
+function getHandler(action: string): [(data: any) => unknown, boolean] {
   switch (action) {
     case "SET_POSITION":
-      return [setPosition];
+      return [setPosition, false];
     case "TOGGLE_PLAY":
-      return [togglePlay];
+      return [togglePlay, false];
     case "GET_STATE":
       return [getState, true];
     default:
-      return [];
+      return [() => {}, false];
   }
 }
 
@@ -27,6 +27,4 @@ browser.runtime.onMessage.addListener(function handleMessages(request) {
   } catch (err) {
     console.error("Message handler error", err);
   }
-
-  return true;
 });
