@@ -7,13 +7,12 @@ export default function useStatus() {
   const [state, setState] = useState<StatusData>({
     loading: true,
     radio: null,
-    position: null,
+    country: null,
     playing: false,
+    intent: false,
   });
 
   const togglePlay = useCallback(() => {
-    if (state.loading || state.position === null) return;
-
     browser.runtime.sendMessage({
       action: "TOGGLE_PLAY",
     });

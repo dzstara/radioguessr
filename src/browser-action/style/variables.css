@@ -1,0 +1,8 @@
+:root {
+  --color-info: rgb(19, 126, 226);
+  --color-info-hover: rgb(19, 150, 226);
+  --color-good: rgb(86, 130, 9);
+  --color-good-hover: rgb(112, 168, 12);
+  --color-bad: rgb(190, 6, 37);
+  --color-bad-hover: rgb(214, 40, 16);
+}

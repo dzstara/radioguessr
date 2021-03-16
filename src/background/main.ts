@@ -16,7 +16,7 @@ function getHandler(action: string): [(data: any) => unknown, boolean] {
   }
 }
 
-browser.runtime.onMessage.addListener(function handleMessages(request) {
+browser.runtime.onMessage.addListener(function handleMessages(request: any) {
   const [handler, shouldRespond] = getHandler(request.action);
 
   if (!handler) return;

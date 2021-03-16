@@ -16,9 +16,10 @@ tuningAudioElement.src = "../../media/tuning.ogg";
 const radioMap = new Map();
 
 let state: StatusData = {
-  position: null,
+  country: null,
   radio: null,
   playing: false,
+  intent: false,
   loading: false,
 };
 
@@ -29,14 +30,30 @@ export function getState() {
 export function togglePlay() {
   setState((state) => ({
     ...state,
-    playing: !state.playing,
+    intent: !state.intent,
   }));
 }
 
 export function setPosition(position: Position) {
+  let newCountry: string | null;
+
+  if (!position) {
+    newCountry = null;
+  } else {
+    const { lat, lng } = position;
+    newCountry = getCountry(lat, lng);
+  }
+
   setState((state) => ({
     ...state,
-    position,
+    country: newCountry,
+  }));
+}
+
+export function flushCountry() {
+  setState((state) => ({
+    ...state,
+    country: null,
   }));
 }
 
@@ -51,25 +68,28 @@ function setState(stateFn: (state: StatusData) => StatusData) {
     })
     .catch(() => {});
 
-  if (previousState.playing !== state.playing) {
-    console.log("playing change", state.playing);
-    onPlayingIntentChange(state.playing);
+  if (previousState.intent !== state.intent) {
+    console.log("intent change", state.intent);
+    onPlayingIntentChange(state.intent);
   }
 
-  if (previousState.loading !== state.loading) {
-    console.log("loading change", state.loading);
-    onLoadingChange(state.loading);
-  }
-
-  if (
-    JSON.stringify(previousState.position) !== JSON.stringify(state.position)
-  ) {
-    onPositionChange(state.position);
+  if (previousState.country !== state.country) {
+    onCountryChange(previousState.country, state.country);
   }
 
   if (previousState.radio !== state.radio) {
     console.log("radio change", state.radio);
     onRadioChange(state.radio);
+  }
+
+  if (
+    (state.radio === null || state.loading) &&
+    state.country !== null &&
+    state.intent
+  ) {
+    tuningAudioElement.play();
+  } else {
+    tuningAudioElement.pause();
   }
 }
 
@@ -88,52 +108,61 @@ radioAudioElement.addEventListener("ended", () => {
   }));
 });
 
-function onLoadingChange(loading: boolean) {
-  if (loading) {
-    tuningAudioElement.play();
-  } else {
-    tuningAudioElement.pause();
-  }
-}
-
-async function onPlayingIntentChange(playing: boolean) {
-  if (playing) {
+async function onPlayingIntentChange(intent: boolean) {
+  if (intent && !!state.country) {
     await setupRadio();
-  } else {
+  }
+
+  if (!intent) {
     radioAudioElement.removeAttribute("src");
     radioAudioElement.load();
+
+    setState((state) => ({
+      ...state,
+      playing: false,
+    }));
   }
 }
 
-async function onPositionChange(position: Position) {
+async function onCountryChange(
+  previousCountry: string | null,
+  newCountry: string | null
+) {
+  if (!!previousCountry) radioMap.delete(previousCountry);
+
   setState((state) => ({ ...state, radio: null }));
-  if (state.playing && !!position) await setupRadio();
-  if (position === null)
+
+  if (state.intent && !!newCountry) await setupRadio();
+
+  if (newCountry === null)
     setState((state) => ({ ...state, loading: false, playing: false }));
 }
 
 function onRadioChange(radio: string | null) {
-  if (radio === null) return;
+  if (radio === null) {
+    radioAudioElement.removeAttribute("src");
+    radioAudioElement.load();
+  } else {
+    radioAudioElement.setAttribute("src", radio);
 
-  radioAudioElement.setAttribute("src", radio);
-
-  if (state.playing) radioAudioElement.play();
+    if (state.intent) radioAudioElement.play();
+  }
 }
 
 async function setupRadio() {
+  if (state.country === null) return;
+
   setState((state) => ({ ...state, loading: true }));
 
-  const radioCache = radioMap.get(state.position);
+  const radioCache = radioMap.get(state.country);
 
   if (!!radioCache) {
     setState((state) => ({ ...state, radio: radioCache }));
     return;
   }
 
-  const { lat, lng } = state.position;
-  const countryCode = getCountry(lat, lng);
-  const url = await getRandomStationFromCountry(countryCode);
-  radioMap.set(state.position, url);
+  const url = await getRandomStationFromCountry(state.country);
+  radioMap.set(state.country, url);
 
   setState((state) => ({ ...state, radio: url }));
 }

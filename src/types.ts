@@ -6,6 +6,7 @@ export interface Position {
 export interface StatusData {
   loading: boolean;
   radio: string | null;
-  position: Position | null;
+  country: string | null;
   playing: boolean;
+  intent: boolean;
 }

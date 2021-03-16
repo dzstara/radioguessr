@@ -2,29 +2,29 @@ import * as React from "react";
 import classnames from "classnames";
 
 import { StatusData } from "types";
-import useStatus from "./useStatus";
+import useStatus from "../../hooks/useStatus";
 
 export default function RadioControl() {
   const { state, togglePlay } = useStatus();
 
+  const buttonData = getButtonData(state);
+
   return (
     <div
-      className={classnames("btn", {
-        "btn-loading": state.loading,
-        "btn-valid": !state.loading && state.position !== null,
-        "btn-disabled": state.position === null,
-      })}
+      className={classnames("btn", buttonData.className)}
       onClick={togglePlay}
     >
-      {getButtonText(state)}
+      {buttonData.text}
     </div>
   );
 }
 
-function getButtonText(state: StatusData) {
-  if (state.loading) return "loading";
-  if (state.position === null) return "no position found";
-
-  if (state.playing) return "stop";
-  return "start";
+function getButtonData(state: StatusData) {
+  if (state.intent && state.country === null)
+    return { text: "waiting...", className: "btn-info" };
+  if (state.intent && state.country !== null && !state.playing)
+    return { text: "loading", className: "btn-info" };
+  if (state.intent && !state.loading)
+    return { text: "stop", className: "btn-bad" };
+  return { text: "start", className: "btn-good" };
 }
