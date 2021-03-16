@@ -9,11 +9,12 @@
     "build": "webpack --config webpack.prod.js"
   },
   "dependencies": {
+    "@geo-maps/countries-maritime-250m": "^0.6.0",
     "classnames": "^2.2.6",
-    "fast-reverse-geocoder": "^1.0.0",
     "iso-3166-1": "^2.0.1",
     "react": "^17.0.1",
-    "react-dom": "^17.0.1"
+    "react-dom": "^17.0.1",
+    "which-polygon": "^2.2.0"
   },
   "devDependencies": {
     "@types/classnames": "^2.2.11",

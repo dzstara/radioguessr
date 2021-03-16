@@ -1,4 +1,8 @@
-declare module "fast-reverse-geocoder" {
-  function search(lng: number, lat: number): { code: string };
-  export { search };
+declare module "@geo-maps/countries-maritime-250m";
+
+declare module "which-polygon" {
+  type fc = ([lat, lng]: [lat: number, lng: number]) => { A3: string };
+  function wc(data: any): fc;
+
+  export default wc;
 }
