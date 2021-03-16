@@ -11,7 +11,8 @@
     "webRequest",
     "webRequestBlocking",
     "https://fr1.api.radio-browser.info/",
-    "https://www.geoguessr.com/"
+    "https://www.geoguessr.com/",
+    "https://maps.googleapis.com/"
   ],
 
   "content_scripts": [
