@@ -1,5 +1,6 @@
 const path = require("path");
 const CopyPlugin = require("copy-webpack-plugin");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
   entry: {
@@ -31,6 +32,12 @@ module.exports = {
   plugins: [
     new CopyPlugin({
       patterns: [{ from: "static", to: "." }],
+    }),
+    new HtmlWebpackPlugin({
+      filename: "browser-action.html",
+      chunks: ["browser-action"],
+      template: "src/browser-action/template.html",
+      scriptLoading: "blocking",
     }),
   ],
 };
