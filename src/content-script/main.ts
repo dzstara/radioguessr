@@ -1,13 +1,6 @@
 import { browser } from "webextension-polyfill-ts";
 import { Position } from "types";
 
-async function fakeJsonP(uri: string) {
-  const src = uri + "&callback=CB";
-  const response = await fetch(src);
-  const text = await response.text();
-  return JSON.parse(text.slice(14, text.length - 2));
-}
-
 function captureNetworkRequests() {
   const list = performance
     .getEntriesByType("resource")
@@ -25,6 +18,13 @@ function setLocation(location: Position | null) {
   browser.runtime.sendMessage({
     action: "SET_POSITION",
     data: location,
+  });
+}
+
+function sendLocationReport(url: string) {
+  browser.runtime.sendMessage({
+    action: "POSITION_REPORT",
+    data: url,
   });
 }
 
@@ -47,17 +47,7 @@ async function getPositionFromLastRequests() {
 
   if (!relevantRequests.length) return;
 
-  const data = await fakeJsonP(relevantRequests[relevantRequests.length - 1]);
-  try {
-    const [lat, lng] = data[1][0][5][0][1][0].slice(2, 4);
-
-    const position = { lat, lng };
-    setLocation(position);
-  } catch (err) {
-    console.error("Could not extract position from payload");
-    console.error("Payload:", data);
-    console.error(err);
-  }
+  sendLocationReport(relevantRequests[relevantRequests.length - 1]);
 }
 
 setInterval(async () => {

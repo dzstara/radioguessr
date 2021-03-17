@@ -1,6 +1,6 @@
 import { browser } from "webextension-polyfill-ts";
 
-import { Position, StatusData } from "types";
+import { Position, StatusData } from "../types";
 import { getCountry } from "./geo";
 import { getRandomStationFromCountry } from "./stations";
 
@@ -110,7 +110,12 @@ radioAudioElement.addEventListener("ended", () => {
 
 async function onPlayingIntentChange(intent: boolean) {
   if (intent && !!state.country) {
-    await setupRadio();
+    if (state.radio) {
+      radioAudioElement.setAttribute("src", state.radio);
+      radioAudioElement.play();
+    } else {
+      await setupRadio();
+    }
   }
 
   if (!intent) {
