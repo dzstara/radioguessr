@@ -1,5 +1,5 @@
 import { browser } from "webextension-polyfill-ts";
-import { Position } from "types";
+import { Position } from "../types";
 
 function captureNetworkRequests() {
   const list = performance

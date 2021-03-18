@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { browser } from "webextension-polyfill-ts";
 
-import { StatusData } from "types";
+import { StatusData } from "../../types";
 
 export default function useStatus() {
   const [state, setState] = useState<StatusData>({

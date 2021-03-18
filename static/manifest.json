@@ -8,6 +8,7 @@
 
   "permissions": [
     "storage",
+    "unlimitedStorage",
     "webRequest",
     "webRequestBlocking",
     "https://fr1.api.radio-browser.info/",

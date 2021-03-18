@@ -9,7 +9,6 @@
     "build": "webpack --config webpack.prod.js"
   },
   "dependencies": {
-    "@geo-maps/countries-maritime-250m": "^0.6.0",
     "classnames": "^2.2.6",
     "iso-3166-1": "^2.0.1",
     "react": "^17.0.1",

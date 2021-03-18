@@ -61,6 +61,9 @@ web-ext sign --api-key=KEY --api-secret=SECRET
 
 Some dependencies are not pulled from NPM, as such here are their authors:
 
+- Countries GeoJSON from [Simone Primarosa](https://github.com/simonepri)
+  Source: https://github.com/simonepri/geo-maps
+
 - Radio tuning sound from [David Bain](https://freesound.org/people/davidbain/)  
   Source: https://freesound.org/people/davidbain/sounds/259706/  
   File found in `/static/media/tuning.ogg`  

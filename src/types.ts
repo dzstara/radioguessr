@@ -10,3 +10,17 @@ export interface StatusData {
   playing: boolean;
   intent: boolean;
 }
+
+export interface RadioStation {
+  url: string;
+  country: string;
+}
+
+export interface GeoJSON<T> {
+  type: "FeatureCollection";
+  features: Array<{
+    type: "Feature";
+    geometry: any;
+    properties: T;
+  }>;
+}

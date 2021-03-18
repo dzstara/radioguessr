@@ -1,12 +1,23 @@
-import json from "@geo-maps/countries-maritime-250m";
 import whichPolygon from "which-polygon";
 import iso3166 from "iso-3166-1";
 import { fakeJsonP } from "../util/jsonp";
 import { setPosition } from "./radio";
+import { GeoJSON } from "../types";
+import { getCachedGetter } from "../util/cache";
 
-const query = whichPolygon(json());
+async function fetchGeo(): Promise<GeoJSON<{ A3: string }>> {
+  const result = await fetch(
+    "https://unpkg.com/@geo-maps/countries-maritime-250m@0.6.0/map.geo.json"
+  );
 
-export function getCountry(lat: number, lng: number) {
+  return result.json();
+}
+
+const getGeo = getCachedGetter("geo", fetchGeo);
+
+export async function getCountry(lat: number, lng: number) {
+  const json = await getGeo();
+  const query = whichPolygon(json);
   const result = query([lng, lat]);
 
   if (!result) {

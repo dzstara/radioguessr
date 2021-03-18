@@ -1,54 +1,14 @@
-import { browser } from "webextension-polyfill-ts";
-
+import { getCachedGetter } from "../util/cache";
 import { shuffle } from "../util/array";
+import { RadioStation } from "../types";
+import pkg from "../../package.json";
 
-interface RadioStation {
-  url: string;
-  country: string;
-}
-
-let radioStations: Array<RadioStation> = [];
-
-(async () => {
-  const cache = await browser.storage.local.get("radioStations");
-
-  if (!!cache.radioStations) {
-    try {
-      const existingStations = parseCache(cache.radioStations);
-      console.log("Found cache with " + existingStations.length + " stations");
-      radioStations = existingStations;
-      return;
-    } catch (err) {
-      console.error("Error parsing cache, continuing as if no cache exists");
-      console.error(err);
-    }
-  }
-
-  console.log("No cache found, downloading radio stations...");
-  const stations = await getAllRadioStations();
-  console.log("Found " + stations.length + " stations");
-
-  await browser.storage.local.set({
-    radioStations: translateToCache(stations),
-  });
-
-  radioStations = stations;
-})();
-
-function parseCache(cache: Array<[string, string]>) {
-  return cache.map(([url, country]) => ({ url, country }));
-}
-
-function translateToCache(data: Array<RadioStation>) {
-  return data.map(({ url, country }) => [url, country]);
-}
-
-async function getAllRadioStations() {
+async function fetchRadioStations(): Promise<Array<RadioStation>> {
   const response = await fetch(
     "https://fr1.api.radio-browser.info/json/stations/search?lastcheckok=1",
     {
       headers: {
-        "User-Agent": "RadioGuessr/0.1",
+        "User-Agent": "RadioGuessr/" + pkg.version,
         "Content-Type": "application/json",
       },
     }
@@ -64,35 +24,34 @@ async function getAllRadioStations() {
     .filter((radio: RadioStation) => radio.country !== "");
 }
 
-export async function getRandomStationFromCountry(countryCode: string) {
-  let radio = null;
+const getStations = getCachedGetter("stations", fetchRadioStations);
 
-  const candidates = shuffle(getRadioStationsFromCountry(countryCode));
+export async function getRandomStationFromCountry(countryCode: string) {
+  const stations = await getRadioStationsFromCountry(countryCode);
+  const candidates = shuffle(stations);
   console.log(candidates.length + " stations found for this country");
 
-  while (radio === null && candidates.length) {
+  while (candidates.length) {
     const currentCandidate = candidates.pop();
     console.log("Verifying validity... (" + candidates.length + " left)");
     const radioIsValid = await isRadioValid(currentCandidate);
 
     if (radioIsValid) {
-      radio = currentCandidate;
-    } else {
-      console.log("Radio was not valid, trying again.");
+      console.log("Got a valid candidate");
+
+      return currentCandidate;
     }
+
+    console.log("Radio was not valid, trying again.");
   }
 
-  if (!radio) {
-    throw new Error("Could not find radio");
-  }
-
-  console.log("Got a valid candidate");
-
-  return radio;
+  throw new Error("Could not find radio");
 }
 
-function getRadioStationsFromCountry(countryCode: string) {
-  return radioStations
+async function getRadioStationsFromCountry(countryCode: string) {
+  const stations = await getStations();
+
+  return stations
     .filter((radio) => radio.country === countryCode)
     .map((radio) => radio.url);
 }

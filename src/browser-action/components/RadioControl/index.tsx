@@ -1,7 +1,7 @@
 import * as React from "react";
 import classnames from "classnames";
 
-import { StatusData } from "types";
+import { StatusData } from "../../../types";
 import useStatus from "../../hooks/useStatus";
 
 export default function RadioControl() {

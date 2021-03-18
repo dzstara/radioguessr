@@ -34,14 +34,14 @@ export function togglePlay() {
   }));
 }
 
-export function setPosition(position: Position) {
+export async function setPosition(position: Position) {
   let newCountry: string | null;
 
   if (!position) {
     newCountry = null;
   } else {
     const { lat, lng } = position;
-    newCountry = getCountry(lat, lng);
+    newCountry = await getCountry(lat, lng);
   }
 
   setState((state) => ({
