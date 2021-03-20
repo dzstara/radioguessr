@@ -1,3 +1,18 @@
+.RadioVolume {
+  display: flex;
+  gap: 7px;
+  align-items: center;
+  color: var(--color-info);
+}
+
+.RadioVolume--icon {
+  color: #999;
+}
+
+.RadioVolume--slider {
+  flex: 1 0 auto;
+}
+
 .rc-slider {
   position: relative;
   height: 6px;
