@@ -1,13 +1,15 @@
 import { browser } from "webextension-polyfill-ts";
 
 import { processPositionReport } from "./geo";
-import { setPosition, togglePlay, getState } from "./radio";
+import { setPosition, setVolume, togglePlay, getState } from "./radio";
 import "./hook";
 
 function getHandler(action: string): [(data: any) => unknown, boolean] {
   switch (action) {
     case "SET_POSITION":
       return [setPosition, false];
+    case "SET_VOLUME":
+      return [setVolume, false];
     case "POSITION_REPORT":
       return [processPositionReport, false];
     case "TOGGLE_PLAY":

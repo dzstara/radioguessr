@@ -1,10 +1,12 @@
 import React, { useEffect } from "react";
 
 import useDisclaimer from "../../hooks/useDisclaimer";
+import { StatusContextProvider } from "../../contexts/StatusContext";
 import Disclaimer from "../Disclaimer";
 import Footer from "../Footer";
 import RadioControl from "../RadioControl";
 import RadioStatus from "../RadioStatus";
+import RadioVolume from "../RadioVolume";
 
 import "./style.css";
 
@@ -21,10 +23,11 @@ export function App() {
 
       <div className="App--grid">
         {acknowledged ? (
-          <>
+          <StatusContextProvider>
             <RadioControl />
+            <RadioVolume />
             <RadioStatus />
-          </>
+          </StatusContextProvider>
         ) : (
           <Disclaimer onAgree={setAcknowledged} />
         )}

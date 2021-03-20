@@ -4,11 +4,13 @@ import { Position, StatusData } from "../types";
 import { getCountry } from "./geo";
 import { getRandomStationFromCountry } from "./stations";
 
+const DEFAULT_VOLUME = 0.8;
+
 const radioAudioElement = document.createElement("audio");
-radioAudioElement.volume = 0.1;
+radioAudioElement.volume = DEFAULT_VOLUME;
 
 const tuningAudioElement = document.createElement("audio");
-tuningAudioElement.volume = 0.2;
+tuningAudioElement.volume = DEFAULT_VOLUME;
 tuningAudioElement.preload = "auto";
 tuningAudioElement.loop = true;
 tuningAudioElement.src = "../../media/tuning.ogg";
@@ -21,6 +23,7 @@ let state: StatusData = {
   playing: false,
   intent: false,
   loading: false,
+  volume: DEFAULT_VOLUME,
 };
 
 export function getState() {
@@ -47,6 +50,13 @@ export async function setPosition(position: Position) {
   setState((state) => ({
     ...state,
     country: newCountry,
+  }));
+}
+
+export function setVolume(volume: number) {
+  setState((state) => ({
+    ...state,
+    volume: Math.pow(volume, 4),
   }));
 }
 
@@ -81,6 +91,9 @@ function setState(stateFn: (state: StatusData) => StatusData) {
     console.log("radio change", state.radio);
     onRadioChange(state.radio);
   }
+
+  radioAudioElement.volume = state.volume;
+  tuningAudioElement.volume = state.volume;
 
   if (
     (state.radio === null || state.loading) &&

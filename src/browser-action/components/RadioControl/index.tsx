@@ -1,12 +1,11 @@
-import * as React from "react";
+import React from "react";
 import classnames from "classnames";
 
 import { StatusData } from "../../../types";
-import useStatus from "../../hooks/useStatus";
+import { useStatus } from "../../contexts/StatusContext";
 
 export default function RadioControl() {
   const { state, togglePlay } = useStatus();
-
   const buttonData = getButtonData(state);
 
   return (

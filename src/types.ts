@@ -9,6 +9,7 @@ export interface StatusData {
   country: string | null;
   playing: boolean;
   intent: boolean;
+  volume: number;
 }
 
 export interface RadioStation {

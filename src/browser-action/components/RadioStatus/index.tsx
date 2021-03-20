@@ -1,6 +1,6 @@
-import * as React from "react";
+import React from "react";
 import classnames from "classnames";
-import useStatus from "../../hooks/useStatus";
+import { useStatus } from "../../contexts/StatusContext";
 
 export default function RadioStatus() {
   const { state } = useStatus();
