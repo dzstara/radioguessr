@@ -29,6 +29,7 @@ function sendLocationReport(url: string) {
 }
 
 function resetLocation() {
+  performance.clearResourceTimings();
   setLocation(null);
 }
 
@@ -41,6 +42,8 @@ window.addEventListener("popstate", resetIfNotInGame);
 setInterval(resetIfNotInGame, 100);
 
 async function getPositionFromLastRequests() {
+  if (!window.location.pathname.startsWith("/game")) return;
+
   const relevantRequests = captureNetworkRequests().filter((url) =>
     url.includes("GeoPhoto")
   );
