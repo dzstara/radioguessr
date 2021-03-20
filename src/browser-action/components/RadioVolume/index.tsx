@@ -19,8 +19,8 @@ export default function RadioVolume() {
           min={0}
           max={1}
           step={0.001}
-          value={state.volume}
-          onChange={setVolume}
+          value={Math.pow(state.volume, 1 / 4)}
+          onChange={(volume) => setVolume(Math.pow(volume, 4))}
         />
       </div>
     </div>

@@ -56,7 +56,7 @@ export async function setPosition(position: Position) {
 export function setVolume(volume: number) {
   setState((state) => ({
     ...state,
-    volume: Math.pow(volume, 4),
+    volume,
   }));
 }
 
