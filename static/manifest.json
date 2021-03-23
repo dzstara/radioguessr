@@ -2,7 +2,7 @@
   "manifest_version": 2,
 
   "name": "RadioGuessr",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "author": "dzstara",
   "description": "Listen to a random radio from the country you're visiting. To be used outside tournaments as this would give an unfair advantage over other participants. Only works in Classic mode.",
 
