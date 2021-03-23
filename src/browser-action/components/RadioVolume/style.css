@@ -1,0 +1,59 @@
+.RadioVolume {
+  display: flex;
+  gap: 7px;
+  align-items: center;
+  color: var(--color-info);
+}
+
+.RadioVolume--icon {
+  color: #999;
+}
+
+.RadioVolume--slider {
+  flex: 1 0 auto;
+}
+
+.rc-slider {
+  position: relative;
+  height: 6px;
+  touch-action: none;
+  margin: 3px 7px;
+}
+
+.rc-slider-rail {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
+  background-color: #e9e9e9;
+  border-radius: 3px;
+}
+
+.rc-slider-track {
+  position: absolute;
+  left: 0;
+  height: 100%;
+  background-color: var(--color-info);
+  border-radius: 3px;
+}
+
+.rc-slider-handle {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%) !important;
+  width: 14px;
+  height: 14px;
+  cursor: grab;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.3);
+  background-color: #fff;
+  touch-action: pan-x;
+}
+
+.rc-slider-handle:focus {
+  outline: none;
+}
+
+.rc-slider-handle:active {
+  cursor: grabbing;
+}

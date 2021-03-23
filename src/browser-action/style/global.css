@@ -1,0 +1,79 @@
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Open Sans", helvetica, -apple-system, BlinkMacSystemFont,
+    sans-serif;
+  letter-spacing: 0.4px;
+}
+
+strong {
+  font-weight: bold;
+}
+
+.btn {
+  display: block;
+  border: none;
+  font-size: 14px;
+  font-weight: 700;
+  text-align: center;
+  border-radius: 0.25rem;
+  padding: 0.5rem 2rem;
+  text-transform: uppercase;
+  line-height: 1;
+  transition: background-color 0.1s ease;
+  cursor: pointer;
+  color: white;
+}
+
+.btn-info {
+  background-color: var(--color-info);
+}
+
+.btn-info:hover {
+  background-color: var(--color-info-hover);
+}
+
+.btn-good {
+  background-color: var(--color-good);
+}
+
+.btn-good:hover {
+  background-color: var(--color-good-hover);
+}
+
+.btn-bad {
+  background-color: var(--color-bad);
+}
+
+.btn-bad:hover {
+  background-color: var(--color-bad-hover);
+}
+
+.data {
+  border: 1px solid #ccc;
+  color: #888;
+  text-align: center;
+  font-size: 12px;
+  border-radius: 4px;
+  padding: 0.5em;
+  transition: color 0.1s, border-color 0.1s;
+}
+
+.data-info {
+  border-color: var(--color-info);
+  color: var(--color-info);
+}
+
+.data-good {
+  border-color: var(--color-good);
+  color: var(--color-good);
+}
+
+.data-bad {
+  border-color: var(--color-bad);
+  color: var(--color-bad);
+}
