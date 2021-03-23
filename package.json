@@ -1,6 +1,6 @@
 {
   "name": "radioguessr",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "author": "dzstara",
   "description": "RadioGuessr is a small browser extension that streams a random radio from the country you're visiting in GeoGuessr.",
   "private": true,
